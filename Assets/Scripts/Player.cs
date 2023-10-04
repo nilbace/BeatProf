@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public GameObject LeftBTN; public GameObject RightBTN; 
     [SerializeField] float moveSpeed;
     float XValue;
+
+    GameObject parryzone; GameObject parryzone2;
     void Start()
     {
         rb2 = GetComponent<Rigidbody2D>();
@@ -35,12 +37,16 @@ public class Player : MonoBehaviour
         entryup.callback.AddListener((data) => { UP((PointerEventData)data); });
         LeftEventTrigger.triggers.Add(entryup);
         RightEventTrigger.triggers.Add(entryup);
+
+        parryzone = GameObject.Find("ParryZone");
+        parryzone2 = GameObject.Find("ParryZone2");
     }
 
     private void FixedUpdate()
     {
         transform.position += new Vector3(XValue * moveSpeed * Time.deltaTime, 0, 0);
-        GameObject.Find("ParryZone").transform.position += new Vector3(XValue * moveSpeed * Time.deltaTime, 0, 0);
+        parryzone.transform.position += new Vector3(XValue * moveSpeed * Time.deltaTime, 0, 0);
+        parryzone2.transform.position += new Vector3(XValue * moveSpeed * Time.deltaTime, 0, 0);
     }
 
     void LeftDown(PointerEventData data)
@@ -60,6 +66,7 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log(collision.gameObject.name);
         UI_InGame.instance.GradeDown();
     }
 }

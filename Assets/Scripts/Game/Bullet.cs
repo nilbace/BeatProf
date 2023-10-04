@@ -27,6 +27,11 @@ public class Bullet : MonoBehaviour
         }
     }
 
+    public void ShootRight()
+    {
+        MoveSpeed *= -1;
+    }
+
     void SetColorAndSpeed(Color C, float S, AttackType attack)
     {
         MoveSpeed = S; sp.color = C; mytype = attack;
